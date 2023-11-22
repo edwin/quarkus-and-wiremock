@@ -1,6 +1,7 @@
 package com.edw.controller;
 
 import com.edw.client.MockyService;
+import com.edw.client.TypicodeService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -32,6 +33,10 @@ public class IndexController {
     @RestClient
     MockyService mockyService;
 
+    @Inject
+    @RestClient
+    TypicodeService typicodeService;
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response index(@QueryParam("name") String name) {
@@ -53,5 +58,13 @@ public class IndexController {
                 .status(200)
                 .entity(mockyService.getDefaultMockData())
                 .build();
+    }
+
+    @GET
+    @Path("/post")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getPost(@QueryParam("id") String id) {
+        logger.debug("calling typicode");
+        return typicodeService.getOnePost(id);
     }
 }

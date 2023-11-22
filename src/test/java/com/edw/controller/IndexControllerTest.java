@@ -45,4 +45,26 @@ public class IndexControllerTest {
             .log().all();
     }
 
+    @Test
+    public void testApiPost() {
+        given()
+            .when()
+                .get("/post?id=1")
+            .then()
+                .statusCode(200)
+                .body("id", isA(Integer.class))
+                .body("id", equalTo(1))
+                .body("title", equalTo("sunt aut facere repellat provident occaecati excepturi optio reprehenderit"))
+            .log().all();
+
+        given()
+            .when()
+                .get("/post?id=2")
+            .then()
+                .statusCode(200)
+                .body("id", isA(Integer.class))
+                .body("id", equalTo(2))
+                .body("title", equalTo("post 2"))
+            .log().all();
+    }
 }
